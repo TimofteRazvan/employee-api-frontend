@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import { Link, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 export default function Filtered() {
     const [employees, setEmployees] = useState([]);
@@ -9,6 +9,7 @@ export default function Filtered() {
 
     useEffect(() => {
         loadEmployees();
+        //eslint-disable-next-line
     }, []);
 
     const loadEmployees = async () => {

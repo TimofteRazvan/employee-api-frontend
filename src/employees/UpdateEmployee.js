@@ -20,7 +20,12 @@ export default function UpdateEmployee() {
     }
 
     useEffect(() => {
-        loadEmployee();
+        //eslint-disable-next-line
+        const loadEmployee = async () => {
+            const result = await axios.get(`http://localhost:8080/employees/${id}`)
+            setEmployee(result.data)
+        }
+        // eslint-disable-next-line
     }, []);
 
 
@@ -28,11 +33,6 @@ export default function UpdateEmployee() {
         event.preventDefault();
         await axios.put(`http://localhost:8080/employees/${id}`, employee)
         navigate("/")
-    }
-
-    const loadEmployee = async () => {
-        const result = await axios.get(`http://localhost:8080/employees/${id}`)
-        setEmployee(result.data)
     }
 
     return (
