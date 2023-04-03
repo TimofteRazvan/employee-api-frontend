@@ -23,7 +23,7 @@ export default function UpdateEmployee() {
         //eslint-disable-next-line
         const loadEmployee = async () => {
             //3.76.207.9:80
-            const result = await axios.get(`http://3.76.207.9:80/employees/${id}`)
+            const result = await axios.get(`api/employees/${id}`)
             //const result = await axios.get(`http://localhost:8080/employees/${id}`)
             setEmployee(result.data)
         }
@@ -34,7 +34,7 @@ export default function UpdateEmployee() {
     const onAccept = async (event) => {
         event.preventDefault();
         //3.76.207.9:80
-        await axios.put(`http://3.76.207.9:80/employees/${id}`, employee)
+        await axios.put(`api/employees/${id}`, employee)
         //await axios.put(`http://localhost:8080/employees/${id}`, employee)
         navigate("/")
     }
