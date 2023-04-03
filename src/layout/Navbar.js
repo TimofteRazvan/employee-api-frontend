@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 export default function Navbar() {
 
     const [age, setAge] = useState('');
+    setAge(0);
 
     const onInputChange = (event) => {
         setAge(event.target.value);
