@@ -14,11 +14,13 @@ export default function Filtered() {
 
     const loadEmployees = async () => {
         if (age != 0) {
-            const result = await axios.get(`http://localhost:8080/employees/filter/age/${age}`)
+            const result = await axios.get(`api/employees/filter/age/${age}`)
+            //const result = await axios.get(`http://localhost:8080/employees/filter/age/${age}`)
             setEmployees(result.data);
         }
         else {
-            const result = await axios.get("http://localhost:8080/employees/compare/age")
+            const result = await axios.get("api/employees/compare/age")
+            //const result = await axios.get("http://localhost:8080/employees/compare/age")
             setEmployees(result.data);
         }
     };
