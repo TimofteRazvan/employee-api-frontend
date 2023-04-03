@@ -26,7 +26,7 @@ export default function Navbar() {
                             value={age}
                             onChange={(event) => onInputChange(event)} />
                         <div className='input-group-append'>
-                            <Link className='btn btn-outline-light' to={`/filter-employee-age/${age}`}>Filter</Link>
+                            <Link className='btn btn-outline-light' to={`/filter-employee-age/${age}`}>Filter & Sort</Link>
                         </div>
                     </div>
                 </form>
