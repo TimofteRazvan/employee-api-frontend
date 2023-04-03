@@ -22,8 +22,8 @@ export default function UpdateEmployee() {
     useEffect(() => {
         //eslint-disable-next-line
         const loadEmployee = async () => {
-            const result = await axios.get(`api/employees/${id}`)
-            //const result = await axios.get(`http://localhost:8080/employees/${id}`)
+            //const result = await axios.get(`api/employees/${id}`)
+            const result = await axios.get(`http://localhost:8080/employees/${id}`)
             setEmployee(result.data)
         }
         // eslint-disable-next-line
@@ -32,8 +32,8 @@ export default function UpdateEmployee() {
 
     const onAccept = async (event) => {
         event.preventDefault();
-        await axios.put(`api/employees/${id}`, employee)
-        //await axios.put(`http://localhost:8080/employees/${id}`, employee)
+        //await axios.put(`api/employees/${id}`, employee)
+        await axios.put(`http://localhost:8080/employees/${id}`, employee)
         navigate("/")
     }
 

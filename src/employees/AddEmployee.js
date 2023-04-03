@@ -18,8 +18,8 @@ export default function AddEmployee() {
 
     const onAccept = async (event) => {
         event.preventDefault();
-        await axios.post("api/employees", employee)
-        //await axios.post("http://localhost:8080/employees", employee)
+        //await axios.post("api/employees", employee)
+        await axios.post("http://localhost:8080/employees", employee)
         navigate("/")
     }
 
