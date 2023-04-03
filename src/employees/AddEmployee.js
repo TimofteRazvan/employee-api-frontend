@@ -18,9 +18,7 @@ export default function AddEmployee() {
 
     const onAccept = async (event) => {
         event.preventDefault();
-        //3.76.207.9:80
-        await axios.post("api/employees", employee)
-        //await axios.post("http://localhost:8080/employees", employee)
+        await axios.post("http://localhost:8080/employees", employee)
         navigate("/")
     }
 
