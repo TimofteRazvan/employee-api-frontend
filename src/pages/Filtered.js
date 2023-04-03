@@ -20,8 +20,17 @@ export default function Filtered() {
         }
         else {
             //const result = await axios.get("api/employees/compare/age")
-            const result = await axios.get("http://localhost:8080/employees/compare/age")
-            setEmployees(result.data);
+            const result = await axios.get("http://localhost:8080/employees/")
+            /*
+            let newArr = []
+            result.forEach((e,i) => {
+            let index = newArr.findIndex(el => el.name === e.name);
+            if(index !== -1 ) newArr[index].value += parseFloat(e.value); //add to the value if an element is not unique
+            if(index === -1 ) newArr.push({...e, value: parseFloat(e.value)}); //push to the array if the element is unique and convert value to float
+            });*/
+            let arr = result.data;
+            arr.sort((e1,e2) => (e1.age < e2.age) ? 1 : (e1.age > e2.age) ? -1 : 0);
+            setEmployees(arr.data);
         }
     };
 
