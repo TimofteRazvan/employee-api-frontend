@@ -12,7 +12,7 @@ export default function Home() {
     }, []);
 
     const loadEmployees = async () => {
-        const result = await axios.get("http://api/employees-details")
+        const result = await axios.get("api/employees-details")
         //const result = await axios.get("http://3.76.207.9:80/employees-details")
         //const result = await axios.get("http://localhost:8080/employees-details")
         setEmployees(result.data);
