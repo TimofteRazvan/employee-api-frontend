@@ -13,7 +13,8 @@ export default function Filtered() {
     }, []);
 
     const loadEmployees = async () => {
-        const result = await axios.get(`http://localhost:8080/employees/filter/age/${age}`)
+        const result = await axios.get(`http://3.76.207.9:80/employees/filter/age/${age}`)
+        //const result = await axios.get(`http://localhost:8080/employees/filter/age/${age}`)
         setEmployees(result.data);
     };
 

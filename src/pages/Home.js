@@ -12,12 +12,14 @@ export default function Home() {
     }, []);
 
     const loadEmployees = async () => {
-        const result = await axios.get("http://localhost:8080/employees-details")
+        const result = await axios.get("http://3.76.207.9:80/employees-details")
+        //const result = await axios.get("http://localhost:8080/employees-details")
         setEmployees(result.data);
     };
 
     const deleteEmployee = async (id) => {
-        await axios.delete(`http://localhost:8080/employees/${id}`)
+        await axios.delete(`http://3.76.207.9:80/employees/${id}`)
+        //await axios.delete(`http://localhost:8080/employees/${id}`)
         loadEmployees();
     };
 
