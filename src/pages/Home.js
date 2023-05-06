@@ -1,20 +1,57 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useParams } from 'react-router-dom';
+import { CircularProgressbar } from 'react-circular-progressbar';
+import 'react-circular-progressbar/dist/styles.css';
 
 export default function Home() {
     const [employees, setEmployees] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const [length, setLength] = useState(1);
+
+    let i = 0, nr = 10;
 
     const { id } = useParams();
 
+    const {currentPage, setCurrentPage} = useState(1);
+
+    
+
+    // useEffect(() => {
+    //     setLoading(true);
+    //     fetch(`http://localhost:8080/employees/page/{i}/{nr}` + String(i) + String(nr))
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setEmployees(data);
+    //             setLoading(false);
+    //         });
+    // }, []);
+
+    // const reloadData = () => {
+    //     setLoading(true);
+    //     fetch(`http://localhost:8080/employees/page/` + String(i) + String(10))
+    //         .then((response) => response.json())
+    //         .then((data) => {
+    //             setEmployees(data);
+    //             setLoading(false);
+    //         });
+    // }
+
     useEffect(() => {
+        setLoading(true);
         loadEmployees();
+        const pageNumbers = [];
+        for(let i = 1; i <= Math.ceil(length / recordsPerPage); i++) {
+            pageNumbers.push(i);
+        }
     }, []);
 
     const loadEmployees = async () => {
-        const result = await axios.get("api/employees-details")
-        //const result = await axios.get("http://localhost:8080/employees-details")
+        //const result = await axios.get("api/employees-details")
+        const result = await axios.get(`http://localhost:8080/employees/page/${i}/${nr}`)
         setEmployees(result.data);
+        //const bigData = await axios.get("http://localhost:8080/employees")
+        //setLength(bigData.data.length);
     };
 
     const deleteEmployee = async (id) => {
@@ -29,6 +66,28 @@ export default function Home() {
         })
         setEmployees(sortedData)
     }
+
+    const incPage = (e) => {
+        i = i + 1;
+        loadEmployees();
+    }
+
+    const decPage = (e) => {
+        if (i >= 1)
+            i = i - 1;
+        loadEmployees();
+    }
+
+    function changePage(newpage) {
+        setCurrentPage(newpage);
+    }
+
+    const recordsPerPage = 10;
+    const lastIndex = currentPage + recordsPerPage;
+    const firstIndex = lastIndex - recordsPerPage;
+    const records = employees.slice(firstIndex, lastIndex)
+    const npage = Math.ceil(employees.length / recordsPerPage)
+    const pageNumbers = [...Array(npage + 1).keys()].slice(1);
 
     return (
         <div className='container'>
@@ -66,6 +125,29 @@ export default function Home() {
                     </tbody>
                 </table>
                 <button className='btn btn-danger mx-2' onClick={() => handleSort()}>Sort</button>
+                <nav>
+                    <ul className='pagination'>
+                        <li className='page-item'>
+                            <a href='#' className='page-link' onClick={decPage}>Prev</a>
+                        </li>
+                    {/* <button className='btn btn-primary mx-2' onClick={decPage}>
+                    Prev Page
+                    </button> */}
+                    {   
+                        pageNumbers.map((n, i) => (
+                            <li className={`page-item $(currentPage === n ? 'active' : '')`} key={i}>
+                                <a href='#' className='page-link' onClick={() => changePage(n)} > {n}</a>
+                            </li>
+                        ))
+                    }
+                        <li className='page-item'>
+                            <a href='#' className='page-link' onClick={incPage}>Next</a>
+                        </li>
+                    {/* <button className='btn btn-primary mx-2' onClick={incPage}>
+                    Next Page
+                    </button> */}
+                    </ul>
+                </nav>
             </div>
         </div>
     )
