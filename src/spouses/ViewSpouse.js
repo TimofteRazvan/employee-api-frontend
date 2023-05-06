@@ -2,50 +2,55 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 
-export default function ViewEmployee() {
-    const [employee, setEmployee] = useState({
+export default function ViewSpouse() {
+    const [spouse, setSpouse] = useState({
         name: "",
-        city: "",
-        age: ""
+        phone: "",
+        age: "",
+        working: false
     })
 
     const { id } = useParams();
 
     useEffect(() => {
-        loadEmployee()
+        loadSpouse()
     }, [])
 
-    const loadEmployee = async () => {
-        //const result = await axios.get(`api/employees/${id}`)
-        const result = await axios.get(`http://localhost:8080/employees/${id}`)
-        setEmployee(result.data)
+    const loadSpouse = async () => {
+        //const result = await axios.get(`api/spouses/${id}`)
+        const result = await axios.get(`http://localhost:8080/spouses/${id}`)
+        setSpouse(result.data)
     }
 
     return (
         <div className='container'>
             <div className='row'>
                 <div className='col-md-6 offset-md-3 border rounded p-4 mt-2 shadow'>
-                    <h4 className='text-center m-4'>EMPLOYEE DETAILS</h4>
+                    <h4 className='text-center m-4'>SPOUSE DETAILS</h4>
                     <div className='card'>
                         <div className='card-header'>
-                            Details of Employee ID:{employee.id}
+                            Details of SPOUSE ID:{spouse.id}
                             <ul className='list-group list-group-flush'>
                                 <li className='list-group-item'>
                                     <b>Name: </b>
-                                    {employee.name}
+                                    {spouse.name}
                                 </li>
                                 <li className='list-group-item'>
-                                    <b>City: </b>
-                                    {employee.city}
+                                    <b>Phone: </b>
+                                    {spouse.phone}
                                 </li>
                                 <li className='list-group-item'>
                                     <b>Age: </b>
-                                    {employee.age}
+                                    {spouse.age}
+                                </li>
+                                <li className='list-group-item'>
+                                    <b>Working? </b>
+                                    {spouse.working.toString()}
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <Link className='btn btn-primary my-2' to={"/"}>Back</Link>
+                    <Link className='btn btn-primary my-2' to={"/spouses"}>Back</Link>
                 </div>
             </div>
         </div>
