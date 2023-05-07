@@ -1,37 +1,37 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
 import axios from 'axios'
 import { Link, useParams } from 'react-router-dom';
 
-export default function Spouses() {
-    const [spouses, setSpouses] = useState([]);
+export default function EmployeeProjects() {
+    const [eps, setEps] = useState([]);
     const {currentPage, setCurrentPage} = useState(1);
     let i = 0, nr = 10;
 
     useEffect(() => {
-        loadSpouses();
+        loadEmployeeProjects();
     }, []);
 
-    const loadSpouses = async () => {
-        //const result = await axios.delete(`api/spouses/${i}/${nr}`)
-        const result = await axios.get(`http://localhost:8080/spouses/page/${i}/${nr}`)
-        setSpouses(result.data);
+    const loadEmployeeProjects = async () => {
+        //const result = await axios.delete(`api/employees-projects/${i}/${nr}`)
+        const result = await axios.get(`http://localhost:8080/employees-projects/page/${i}/${nr}`)
+        setEps(result.data);
     };
 
-    const deleteSpouse = async (id) => {
-        //await axios.delete(`api/spouses/${id}`)
-        await axios.delete(`http://localhost:8080/spouses/${id}`)
-        loadSpouses();
+    const deleteEmployeeProject = async (id) => {
+        //await axios.delete(`api/employees-projects/${id}`)
+        await axios.delete(`http://localhost:8080/employees-projects/${id}`)
+        loadEmployeeProjects();
     };
 
     const incPage = (e) => {
         i = i + 1;
-        loadSpouses();
+        loadEmployeeProjects();
     }
 
     const decPage = (e) => {
         if (i >= 1)
             i = i - 1;
-        loadSpouses();
+        loadEmployeeProjects();
     }
 
     function changePage(newpage) {
@@ -41,8 +41,8 @@ export default function Spouses() {
     const recordsPerPage = 10;
     const lastIndex = currentPage + recordsPerPage;
     const firstIndex = lastIndex - recordsPerPage;
-    const records = spouses.slice(firstIndex, lastIndex)
-    const npage = Math.ceil(spouses.length / recordsPerPage)
+    const records = eps.slice(firstIndex, lastIndex)
+    const npage = Math.ceil(eps.length / recordsPerPage)
     const pageNumbers = [...Array(npage + 1).keys()].slice(1);
 
     return (
@@ -51,35 +51,35 @@ export default function Spouses() {
             <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span className="navbar-toggler-icon"></span>
             </button>
-            <Link className="btn btn-outline-dark" to="/add-spouse">Add Spouse</Link>
+            <Link className="btn btn-outline-dark" to="/add-employee-project">Add EmployeeProjects</Link>
                 <table className="table border shadow">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">ID</th>
-                            <th scope="col">NAME</th>
-                            <th scope="col">PHONE</th>
-                            <th scope="col">AGE</th>
-                            <th scope="col">IS WORKING</th>
+                            <th scope="col">EMPLOYEE</th>
+                            <th scope="col">PROJECT</th>
+                            <th scope="col">ROLE</th>
+                            <th scope="col">EFFICIENCY</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            spouses.map((spouse, index) => (
+                            eps.map((ep, index) => (
                                 <tr>
                                     <th scope="row" key={index}>{index + 1}</th>
-                                    <td>{spouse.id}</td>
-                                    <td>{spouse.name}</td>
-                                    <td>{spouse.phone}</td>
-                                    <td>{spouse.age}</td>
-                                    <td>{spouse.working.toString()}</td>
+                                    <td>{ep.id}</td>
+                                    <td>{ep.employee}</td>
+                                    <td>{ep.project}</td>
+                                    <td>{ep.role}</td>
+                                    <td>{ep.efficiency}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
-                                            to={`/view-spouse/${spouse.id}`}>View</Link>
+                                            to={`/view-employee-project/${ep.id}`}>View</Link>
                                         <Link className='btn btn-outline-primary mx-2'
-                                            to={`/update-spouse/${spouse.id}`}>Update</Link>
+                                            to={`/update-employee-project/${ep.id}`}>Update</Link>
                                         <button className='btn btn-danger mx-2'
-                                            onClick={() => deleteSpouse(spouse.id)}>Delete</button>
+                                            onClick={() => deleteEmployeeProject(ep.id)}>Delete</button>
                                     </td>
                                 </tr>
                             ))

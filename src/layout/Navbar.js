@@ -21,6 +21,18 @@ export default function Navbar() {
                     <span className="navbar-toggler-icon"></span>
                 </button>
                 <Link className='btn btn-outline-light' to="/spouses">Spouses</Link>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <Link className="btn btn-outline-light" to="/addresses">Addresses</Link>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <Link className="btn btn-outline-light" to="/projects">Projects</Link>
+                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+                <Link className="btn btn-outline-light" to="/employees-projects">Employees&Projects</Link>
                 <form>
                     <div className='input-group mx-5'>
                         <input type={'text'}

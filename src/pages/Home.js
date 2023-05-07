@@ -15,48 +15,24 @@ export default function Home() {
 
     const {currentPage, setCurrentPage} = useState(1);
 
-    
-
-    // useEffect(() => {
-    //     setLoading(true);
-    //     fetch(`http://localhost:8080/employees/page/{i}/{nr}` + String(i) + String(nr))
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setEmployees(data);
-    //             setLoading(false);
-    //         });
-    // }, []);
-
-    // const reloadData = () => {
-    //     setLoading(true);
-    //     fetch(`http://localhost:8080/employees/page/` + String(i) + String(10))
-    //         .then((response) => response.json())
-    //         .then((data) => {
-    //             setEmployees(data);
-    //             setLoading(false);
-    //         });
-    // }
-
     useEffect(() => {
         setLoading(true);
         loadEmployees();
-        const pageNumbers = [];
-        for(let i = 1; i <= Math.ceil(length / recordsPerPage); i++) {
-            pageNumbers.push(i);
-        }
+        // const pageNumbers = [];
+        // for(let i = 1; i <= Math.ceil(length / recordsPerPage); i++) {
+        //     pageNumbers.push(i);
+        // }
     }, []);
 
     const loadEmployees = async () => {
         //const result = await axios.get("api/employees-details")
         const result = await axios.get(`http://localhost:8080/employees/page/${i}/${nr}`)
         setEmployees(result.data);
-        //const bigData = await axios.get("http://localhost:8080/employees")
-        //setLength(bigData.data.length);
     };
 
     const deleteEmployee = async (id) => {
-        await axios.delete(`api/employees/${id}`)
-        //await axios.delete(`http://localhost:8080/employees/${id}`)
+        //await axios.delete(`api/employees/${id}`)
+        await axios.delete(`http://localhost:8080/employees/${id}`)
         loadEmployees();
     };
 
@@ -92,6 +68,10 @@ export default function Home() {
     return (
         <div className='container'>
             <div className='py-4'>
+            <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span className="navbar-toggler-icon"></span>
+            </button>
+            <Link className="btn btn-outline-dark" to="/add-employee">Add Employee</Link>
                 <table className="table border shadow">
                     <thead>
                         <tr>
@@ -100,6 +80,8 @@ export default function Home() {
                             <th scope="col">NAME</th>
                             <th scope="col">CITY</th>
                             <th scope="col">AGE</th>
+                            <th scope="col">SPOUSE</th>
+                            <th scope="col">ADDRESSES</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,6 +93,8 @@ export default function Home() {
                                     <td>{employee.name}</td>
                                     <td>{employee.city}</td>
                                     <td>{employee.age}</td>
+                                    <td>{employee.spouse}</td>
+                                    <td>{employee.addresses}</td>
                                     <td>
                                         <Link className='btn btn-primary mx-2'
                                             to={`/view-employee/${employee.id}`}>View</Link>

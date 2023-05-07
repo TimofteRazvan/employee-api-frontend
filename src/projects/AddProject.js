@@ -2,33 +2,34 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-export default function AddEmployee() {
+export default function AddProject() {
     let navigate = useNavigate()
-    const [employee, setEmployee] = useState({
+    const [project, setProject] = useState({
         name: "",
-        city: "",
-        age: 18,
-        spouse: 0
+        clientName: "",
+        language: "",
+        deadline: "",
+        description: ""
     })
 
-    const { name, city, age, spouse } = employee
+    const { name, clientName, language, deadline, description } = project
 
     const onInputChange = (event) => {
-        setEmployee({ ...employee, [event.target.name]: event.target.value })
+        setProject({ ...project, [event.target.name]: event.target.value })
     }
 
     const onAccept = async (event) => {
         event.preventDefault();
-        await axios.post("api/employees", employee)
-        //await axios.post("http://localhost:8080/employees", employee)
-        navigate("/")
+        //await axios.post("api/projects", project])
+        await axios.post("http://localhost:8080/projects", project)
+        navigate("/projects")
     }
 
     return (
         <div className='container'>
             <div className='row'>
                 <div className='col-md-6 offset-md-3 border rounded p-4 mt-2 shadow'>
-                    <h4 className='text-center m-4'>NEW EMPLOYEE</h4>
+                    <h4 className='text-center m-4'>NEW PROJECT</h4>
                     <form onSubmit={(event) => onAccept(event)}>
                         <div className='mb-3'>
                             <label htmlFor='Name' className='form-label'>
@@ -42,40 +43,51 @@ export default function AddEmployee() {
                                 onChange={(event) => onInputChange(event)} />
                         </div>
                         <div className='mb-3'>
-                            <label htmlFor='City' className='form-label'>
-                                City
+                            <label htmlFor='ClientName' className='form-label'>
+                                Client Name
                             </label>
                             <input type={'text'}
                                 className='form-control'
-                                placeholder='Enter city'
-                                name='city'
-                                value={city}
+                                placeholder='Enter client name'
+                                name='clientName'
+                                value={clientName}
                                 onChange={(event) => onInputChange(event)} />
                         </div>
                         <div className='mb-3'>
-                            <label htmlFor='Age' className='form-label'>
-                                Age
+                            <label htmlFor='Language' className='form-label'>
+                                Language
                             </label>
                             <input type={'text'}
                                 className='form-control'
-                                placeholder='Enter age'
-                                name='age'
-                                value={age}
+                                placeholder='Enter language'
+                                name='language'
+                                value={language}
                                 onChange={(event) => onInputChange(event)} />
                         </div>
                         <div className='mb-3'>
-                            <label htmlFor='Spouse' className='form-label'>
-                                Spouse ID
+                            <label htmlFor='Deadline' className='form-label'>
+                                Deadline (YYYY-MM-DD)
                             </label>
                             <input type={'text'}
                                 className='form-control'
-                                placeholder='Enter spouse'
-                                name='spouse'
-                                value={spouse}
+                                placeholder='Enter deadline'
+                                name='deadline'
+                                value={deadline}
+                                onChange={(event) => onInputChange(event)} />
+                        </div>
+                        <div className='mb-3'>
+                            <label htmlFor='Description' className='form-label'>
+                                Description
+                            </label>
+                            <input type={'text'}
+                                className='form-control'
+                                placeholder='Enter description'
+                                name='description'
+                                value={description}
                                 onChange={(event) => onInputChange(event)} />
                         </div>
                         <button type='submit' className='btn btn-primary'>Accept</button>
-                        <Link to='/' className='btn btn-outline-primary m-2'>Cancel</Link>
+                        <Link to='/projects' className='btn btn-outline-primary m-2'>Cancel</Link>
                     </form>
                 </div>
             </div>

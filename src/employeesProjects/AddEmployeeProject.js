@@ -2,80 +2,80 @@ import axios from 'axios'
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
-export default function AddEmployee() {
+export default function AddEmployeeProject() {
     let navigate = useNavigate()
-    const [employee, setEmployee] = useState({
-        name: "",
-        city: "",
-        age: 18,
-        spouse: 0
+    const [employeeProject, setEmployeeProject] = useState({
+        employee: 0,
+        project: 0,
+        role: "",
+        efficiency: ""
     })
 
-    const { name, city, age, spouse } = employee
+    const { employee, project, role, efficiency } = employeeProject
 
     const onInputChange = (event) => {
-        setEmployee({ ...employee, [event.target.name]: event.target.value })
+        setEmployeeProject({ ...employeeProject, [event.target.name]: event.target.value })
     }
 
     const onAccept = async (event) => {
         event.preventDefault();
-        await axios.post("api/employees", employee)
-        //await axios.post("http://localhost:8080/employees", employee)
-        navigate("/")
+        //await axios.post("api/employees-projects", employeeProject)
+        await axios.post("http://localhost:8080/employees-projects", employeeProject)
+        navigate("/employees-projects")
     }
 
     return (
         <div className='container'>
             <div className='row'>
                 <div className='col-md-6 offset-md-3 border rounded p-4 mt-2 shadow'>
-                    <h4 className='text-center m-4'>NEW EMPLOYEE</h4>
+                    <h4 className='text-center m-4'>NEW EMPLOYEE_PROJECT</h4>
                     <form onSubmit={(event) => onAccept(event)}>
                         <div className='mb-3'>
-                            <label htmlFor='Name' className='form-label'>
-                                Name
+                            <label htmlFor='Employee' className='form-label'>
+                                Employee ID
                             </label>
                             <input type={'text'}
                                 className='form-control'
-                                placeholder='Enter name'
-                                name='name'
-                                value={name}
+                                placeholder='Enter employee ID'
+                                name='employee'
+                                value={employee}
                                 onChange={(event) => onInputChange(event)} />
                         </div>
                         <div className='mb-3'>
-                            <label htmlFor='City' className='form-label'>
-                                City
+                            <label htmlFor='Project' className='form-label'>
+                                Project ID
                             </label>
                             <input type={'text'}
                                 className='form-control'
-                                placeholder='Enter city'
-                                name='city'
-                                value={city}
+                                placeholder='Enter project ID'
+                                name='project'
+                                value={project}
                                 onChange={(event) => onInputChange(event)} />
                         </div>
                         <div className='mb-3'>
-                            <label htmlFor='Age' className='form-label'>
-                                Age
+                            <label htmlFor='Role' className='form-label'>
+                                Role
                             </label>
                             <input type={'text'}
                                 className='form-control'
-                                placeholder='Enter age'
-                                name='age'
-                                value={age}
+                                placeholder='Enter role'
+                                name='role'
+                                value={role}
                                 onChange={(event) => onInputChange(event)} />
                         </div>
                         <div className='mb-3'>
-                            <label htmlFor='Spouse' className='form-label'>
-                                Spouse ID
+                            <label htmlFor='Efficiency' className='form-label'>
+                                Efficiency
                             </label>
                             <input type={'text'}
                                 className='form-control'
-                                placeholder='Enter spouse'
-                                name='spouse'
-                                value={spouse}
+                                placeholder='Enter efficiency'
+                                name='efficiency'
+                                value={efficiency}
                                 onChange={(event) => onInputChange(event)} />
                         </div>
                         <button type='submit' className='btn btn-primary'>Accept</button>
-                        <Link to='/' className='btn btn-outline-primary m-2'>Cancel</Link>
+                        <Link to='/employees-projects' className='btn btn-outline-primary m-2'>Cancel</Link>
                     </form>
                 </div>
             </div>
