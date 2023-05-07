@@ -23,8 +23,8 @@ export default function UpdateProject() {
 
     useEffect(() => {
         const loadProject = async () => {
-            //const result = await axios.get(`api/projects/${id}`)
-            const result = await axios.get(`http://localhost:8080/projects/${id}`)
+            const result = await axios.get(`api/projects/${id}`)
+            //const result = await axios.get(`http://localhost:8080/projects/${id}`)
             setProject(result.data)
         }
     }, []);
@@ -32,8 +32,8 @@ export default function UpdateProject() {
 
     const onAccept = async (event) => {
         event.preventDefault();
-        //await axios.put(`api/projects/${id}`, project)
-        await axios.put(`http://localhost:8080/projects/${id}`, project)
+        await axios.put(`api/projects/${id}`, project)
+        //await axios.put(`http://localhost:8080/projects/${id}`, project)
         navigate("/projects")
     }
 

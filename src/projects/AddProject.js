@@ -20,8 +20,8 @@ export default function AddProject() {
 
     const onAccept = async (event) => {
         event.preventDefault();
-        //await axios.post("api/projects", project])
-        await axios.post("http://localhost:8080/projects", project)
+        await axios.post("api/projects", project)
+        //await axios.post("http://localhost:8080/projects", project)
         navigate("/projects")
     }
 

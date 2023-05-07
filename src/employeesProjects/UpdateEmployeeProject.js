@@ -21,16 +21,16 @@ export default function AddEmployeeProject() {
 
     useEffect(() => {
         const loadEmployeeProject = async () => {
-            //const result = await axios.get(`api/employees-projects/${id}`)
-            const result = await axios.get(`http://localhost:8080/employees-projects/${id}`)
+            const result = await axios.get(`api/employees-projects/${id}`)
+            //const result = await axios.get(`http://localhost:8080/employees-projects/${id}`)
             setEmployeeProject(result.data)
         }
     }, []);
 
     const onAccept = async (event) => {
         event.preventDefault();
-        //await axios.put(`api/employees-projects/${id}`, employeeProject)
-        await axios.put(`http://localhost:8080/employees-projects/${id}`, employeeProject)
+        await axios.put(`api/employees-projects/${id}`, employeeProject)
+        //await axios.put(`http://localhost:8080/employees-projects/${id}`, employeeProject)
         navigate("/employees-projects")
     }
 

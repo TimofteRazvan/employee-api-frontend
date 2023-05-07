@@ -17,8 +17,8 @@ export default function ViewSpouse() {
     }, [])
 
     const loadSpouse = async () => {
-        //const result = await axios.get(`api/spouses/${id}`)
-        const result = await axios.get(`http://localhost:8080/spouses/${id}`)
+        const result = await axios.get(`api/spouses/${id}`)
+        //const result = await axios.get(`http://localhost:8080/spouses/${id}`)
         setSpouse(result.data)
     }
 

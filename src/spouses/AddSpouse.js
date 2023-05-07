@@ -19,8 +19,8 @@ export default function AddSpouse() {
 
     const onAccept = async (event) => {
         event.preventDefault();
-        //await axios.post("api/employees", employee)
-        await axios.post("http://localhost:8080/spouses", spouse)
+        await axios.post("api/spouses", spouse)
+        //await axios.post("http://localhost:8080/spouses", spouse)
         navigate("/spouses")
     }
 

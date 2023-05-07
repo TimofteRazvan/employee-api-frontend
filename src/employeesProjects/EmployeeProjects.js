@@ -12,14 +12,14 @@ export default function EmployeeProjects() {
     }, []);
 
     const loadEmployeeProjects = async () => {
-        //const result = await axios.delete(`api/employees-projects/${i}/${nr}`)
-        const result = await axios.get(`http://localhost:8080/employees-projects/page/${i}/${nr}`)
+        const result = await axios.get(`api/employees-projects/page/${i}/${nr}`)
+        //const result = await axios.get(`http://localhost:8080/employees-projects/page/${i}/${nr}`)
         setEps(result.data);
     };
 
     const deleteEmployeeProject = async (id) => {
-        //await axios.delete(`api/employees-projects/${id}`)
-        await axios.delete(`http://localhost:8080/employees-projects/${id}`)
+        await axios.delete(`api/employees-projects/${id}`)
+        //await axios.delete(`http://localhost:8080/employees-projects/${id}`)
         loadEmployeeProjects();
     };
 

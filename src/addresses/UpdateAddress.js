@@ -25,8 +25,8 @@ export default function UpdateAddress() {
 
     useEffect(() => {
         const loadAddress = async () => {
-            //const result = await axios.get(`api/addresses/${id}`)
-            const result = await axios.get(`http://localhost:8080/addresses/${id}`)
+            const result = await axios.get(`api/addresses/${id}`)
+            //const result = await axios.get(`http://localhost:8080/addresses/${id}`)
             setAddress(result.data)
         }
     }, []);
@@ -34,8 +34,8 @@ export default function UpdateAddress() {
 
     const onAccept = async (event) => {
         event.preventDefault();
-        //await axios.put(`api/addresses/${id}`, address)
-        await axios.put(`http://localhost:8080/addresses/${id}`, address)
+        await axios.put(`api/addresses/${id}`, address)
+        //await axios.put(`http://localhost:8080/addresses/${id}`, address)
         navigate("/addresses")
     }
 

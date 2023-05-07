@@ -19,8 +19,8 @@ export default function AddEmployeeProject() {
 
     const onAccept = async (event) => {
         event.preventDefault();
-        //await axios.post("api/employees-projects", employeeProject)
-        await axios.post("http://localhost:8080/employees-projects", employeeProject)
+        await axios.post("api/employees-projects", employeeProject)
+        //await axios.post("http://localhost:8080/employees-projects", employeeProject)
         navigate("/employees-projects")
     }
 

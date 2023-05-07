@@ -18,8 +18,8 @@ export default function ViewProject() {
     }, [])
 
     const loadProject = async () => {
-        //const result = await axios.get(`api/projects/${id}`)
-        const result = await axios.get(`http://localhost:8080/projects/${id}`)
+        const result = await axios.get(`api/projects/${id}`)
+        //const result = await axios.get(`http://localhost:8080/projects/${id}`)
         setProject(result.data)
     }
 

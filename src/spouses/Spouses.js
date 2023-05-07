@@ -12,14 +12,14 @@ export default function Spouses() {
     }, []);
 
     const loadSpouses = async () => {
-        //const result = await axios.delete(`api/spouses/${i}/${nr}`)
-        const result = await axios.get(`http://localhost:8080/spouses/page/${i}/${nr}`)
+        const result = await axios.get(`api/spouses/page/${i}/${nr}`)
+        //const result = await axios.get(`http://localhost:8080/spouses/page/${i}/${nr}`)
         setSpouses(result.data);
     };
 
     const deleteSpouse = async (id) => {
-        //await axios.delete(`api/spouses/${id}`)
-        await axios.delete(`http://localhost:8080/spouses/${id}`)
+        await axios.delete(`api/spouses/${id}`)
+        //await axios.delete(`http://localhost:8080/spouses/${id}`)
         loadSpouses();
     };
 
