@@ -25,8 +25,8 @@ export default function Home() {
     }, []);
 
     const loadEmployees = async () => {
-        //const result = await axios.get("api/employees-details")
-        const result = await axios.get(`http://localhost:8080/employees/page/${i}/${nr}`)
+        const result = await axios.get(`api/employees/page/${i}/${nr}`)
+        //const result = await axios.get(`http://localhost:8080/employees/page/${i}/${nr}`)
         setEmployees(result.data);
     };
 
