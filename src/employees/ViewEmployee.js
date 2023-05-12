@@ -18,7 +18,7 @@ export default function ViewEmployee() {
     }, [])
 
     const loadEmployee = async () => {
-        const result = await axios.get(`api/employees/${id}`)
+        const result = await axios.get(`https://grifon.crabdance.com/employees/${id}`)
         //const result = await axios.get(`http://localhost:8080/employees/${id}`)
         setEmployee(result.data)
     }

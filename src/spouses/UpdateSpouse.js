@@ -23,7 +23,7 @@ export default function UpdateSpouse() {
     useEffect(() => {
         //eslint-disable-next-line
         const loadSpouse = async () => {
-            const result = await axios.get(`api/spouses/${id}`)
+            const result = await axios.get(`https://grifon.crabdance.com/spouses/${id}`)
             //const result = await axios.get(`http://localhost:8080/spouses/${id}`)
             setSpouse(result.data)
         }
@@ -33,7 +33,7 @@ export default function UpdateSpouse() {
 
     const onAccept = async (event) => {
         event.preventDefault();
-        await axios.put(`api/spouses/${id}`, spouse)
+        await axios.put(`https://grifon.crabdance.com/spouses/${id}`, spouse)
         //await axios.put(`http://localhost:8080/spouses/${id}`, spouse)
         navigate("/spouses")
     }

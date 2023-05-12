@@ -12,14 +12,14 @@ export default function Addresses() {
     }, []);
 
     const loadAddresses = async () => {
-        const result = await axios.get(`api/addresses/page/${i}/${nr}`)
+        const result = await axios.get(`https://grifon.crabdance.com/addresses/page/${i}/${nr}`)
         //const result = await axios.get(`http://localhost:8080/addresses/page/${i}/${nr}`)
         console.log(result.data);
         setAddresses(result.data);
     };
 
     const deleteAddress = async (id) => {
-        await axios.delete(`api/addresses/${id}`)
+        await axios.delete(`https://grifon.crabdance.com/addresses/${id}`)
         //await axios.delete(`http://localhost:8080/addresses/${id}`)
         loadAddresses();
     };

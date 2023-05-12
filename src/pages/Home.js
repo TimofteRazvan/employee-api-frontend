@@ -25,13 +25,13 @@ export default function Home() {
     }, []);
 
     const loadEmployees = async () => {
-        const result = await axios.get(`api/employees/page/${i}/${nr}`)
+        const result = await axios.get(`https://grifon.crabdance.com/employees/page/${i}/${nr}`)
         //const result = await axios.get(`http://localhost:8080/employees/page/${i}/${nr}`)
         setEmployees(result.data);
     };
 
     const deleteEmployee = async (id) => {
-        await axios.delete(`api/employees/${id}`)
+        await axios.delete(`https://grifon.crabdance.com/employees/${id}`)
         //await axios.delete(`http://localhost:8080/employees/${id}`)
         loadEmployees();
     };

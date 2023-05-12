@@ -22,7 +22,7 @@ export default function AddAddress() {
 
     const onAccept = async (event) => {
         event.preventDefault();
-        await axios.post("api/addresses", address)
+        await axios.post("https://grifon.crabdance.com/addresses", address)
         //await axios.post("http://localhost:8080/addresses", address)
         navigate("/addresses")
     }

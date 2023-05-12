@@ -16,12 +16,12 @@ export default function Filtered() {
 
     const loadEmployees = async () => {
         if (age != 0) {
-            const result = await axios.get(`api/employees/filter/age/${age}/${offset}/${pageSize}`)
+            const result = await axios.get(`https://grifon.crabdance.com/employees/filter/age/${age}/${offset}/${pageSize}`)
             //const result = await axios.get(`http://localhost:8080/employees/filter/age/${age}/${offset}/${pageSize}`)
             setEmployees(result.data);
         }
         else {
-            const result = await axios.get(`api/employees/page/${offset}/${pageSize}`)
+            const result = await axios.get(`https://grifon.crabdance.com/employees/page/${offset}/${pageSize}`)
             //const result = await axios.get(`http://localhost:8080/employees/page/${offset}/${pageSize}`)
             /*
             let newArr = []
@@ -37,7 +37,7 @@ export default function Filtered() {
     };
 
     const deleteEmployee = async (id) => {
-        await axios.delete(`api/employees/${id}`)
+        await axios.delete(`https://grifon.crabdance.com/employees/${id}`)
         //await axios.delete(`http://localhost:8080/employees/${id}`)
         loadEmployees();
     };

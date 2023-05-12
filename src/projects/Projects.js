@@ -12,13 +12,13 @@ export default function Projects() {
     }, []);
 
     const loadProjects = async () => {
-        const result = await axios.get(`api/projects/page/${i}/${nr}`)
+        const result = await axios.get(`https://grifon.crabdance.com/projects/page/${i}/${nr}`)
         //const result = await axios.get(`http://localhost:8080/projects/page/${i}/${nr}`)
         setProjects(result.data);
     };
 
     const deleteProject = async (id) => {
-        await axios.delete(`api/projects/${id}`)
+        await axios.delete(`https://grifon.crabdance.com/projects/${id}`)
         //await axios.delete(`http://localhost:8080/projects/${id}`)
         loadProjects();
     };

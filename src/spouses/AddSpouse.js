@@ -19,7 +19,7 @@ export default function AddSpouse() {
 
     const onAccept = async (event) => {
         event.preventDefault();
-        await axios.post("api/spouses", spouse)
+        await axios.post("https://grifon.crabdance.com/spouses", spouse)
         //await axios.post("http://localhost:8080/spouses", spouse)
         navigate("/spouses")
     }
