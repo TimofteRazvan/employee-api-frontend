@@ -20,7 +20,8 @@ export default function ViewAddress() {
         loadAddress()
     }, [])
 
-    const loadAddress = async () => {
+    const loadAddress = async (id) => {
+        console.log("start get")
         const result = await axios.get(`api/addresses/${id}`)
         console.log(result)
         //const result = await axios.get(`http://localhost:8080/addresses/${id}`)
