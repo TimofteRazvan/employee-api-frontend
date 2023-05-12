@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 
 export default function ViewSpouse() {
     const [spouse, setSpouse] = useState({
+        id: 0,
         name: "",
         phone: "",
         age: "",
@@ -18,6 +19,7 @@ export default function ViewSpouse() {
 
     const loadSpouse = async () => {
         const result = await axios.get(`api/spouses/${id}`)
+        console.log(result);
         //const result = await axios.get(`http://localhost:8080/spouses/${id}`)
         setSpouse(result.data)
     }
@@ -45,7 +47,7 @@ export default function ViewSpouse() {
                                 </li>
                                 <li className='list-group-item'>
                                     <b>Working? </b>
-                                    {spouse.working.toString()}
+                                    {spouse.working}
                                 </li>
                             </ul>
                         </div>
