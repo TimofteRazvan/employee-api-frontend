@@ -16,17 +16,24 @@ export default function ViewAddress() {
 
     const { id } = useParams();
 
-    useEffect(() => {
-        loadAddress()
-    }, [])
+    useEffect(()=>{
+        loadAddress();
 
-    const loadAddress = async () => {
-        console.log("start get")
-        const result = await axios.get(`api/addresses/${id}`)
-        console.log(result.data)
-        //const result = await axios.get(`http://localhost:8080/addresses/${id}`)
-        setAddress(result.data)
+    },[])
+
+    const loadAddress=async()=>{
+        const result = await axios.get(`https://grifon.crabdance.com/addresses/${id}`);
+        console.log(result);
+        setAddress(result.data);
     }
+
+    // const loadAddress = async () => {
+    //     console.log("start get")
+    //     const result = await axios.get(`api/addresses/${id}`)
+    //     console.log(result.data)
+    //     //const result = await axios.get(`http://localhost:8080/addresses/${id}`)
+    //     setAddress(result.data)
+    // }
 
     return (
         <div className='container'>
