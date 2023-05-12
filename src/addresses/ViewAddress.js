@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 
 export default function ViewAddress() {
     const [address, setAddress] = useState({
+        id: 0,
         line1: "",
         line2: "",
         zipCode: "",
@@ -21,6 +22,7 @@ export default function ViewAddress() {
 
     const loadAddress = async () => {
         const result = await axios.get(`api/addresses/${id}`)
+        console.log(result)
         //const result = await axios.get(`http://localhost:8080/addresses/${id}`)
         setAddress(result.data)
     }

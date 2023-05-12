@@ -47,7 +47,7 @@ export default function ViewSpouse() {
                                 </li>
                                 <li className='list-group-item'>
                                     <b>Working? </b>
-                                    {spouse.working}
+                                    {spouse.working.toString()}
                                 </li>
                             </ul>
                         </div>
