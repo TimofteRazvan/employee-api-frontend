@@ -1,2 +1,2 @@
-/api*/ http://grifon.crabdance.com/:splat 200
+/api*/ https://grifon.crabdance.com/:splat 200
 /* /index.html 200
