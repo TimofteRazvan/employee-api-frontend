@@ -14,15 +14,15 @@ export default function Spouses() {
     }, []);
 
     const loadMaxPage = async () =>{
-        //const result = await axios.get("https://grifon.crabdance.com/spouses/maxPage");
-        const result = await axios.get("http://localhost:8080/spouses/maxPage");
+        const result = await axios.get("https://grifon.crabdance.com/spouses/maxPage");
+        //const result = await axios.get("http://localhost:8080/spouses/maxPage");
         console.log(result.data);
         setMaxPage(Math.ceil((result.data / 10)) - 1);
     }
 
     const loadSpouses = async () => {
-        //const result = await axios.get(`https://grifon.crabdance.com/spouses/page/${pageNr}/${perPage}`)
-        const result = await axios.get(`http://localhost:8080/spouses/page/${pageNr}/${perPage}`)
+        const result = await axios.get(`https://grifon.crabdance.com/spouses/page/${pageNr}/${perPage}`)
+        //const result = await axios.get(`http://localhost:8080/spouses/page/${pageNr}/${perPage}`)
         setSpouses(result.data);
     };
 
