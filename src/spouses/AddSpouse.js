@@ -22,7 +22,7 @@ export default function AddSpouse() {
 
     const onAccept = async (event) => {
         event.preventDefault();
-        await axios.post("https://grifon.crabdance.com/spouses", spouse)
+        const result = await axios.post("https://grifon.crabdance.com/spouses", spouse)
         //const result = await axios.post("http://localhost:8080/spouses", spouse)
         console.log(result.data.toString())
         if(!result.data.toString().includes("Object")){
