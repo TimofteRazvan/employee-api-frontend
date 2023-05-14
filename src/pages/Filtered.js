@@ -6,30 +6,32 @@ export default function Filtered() {
     const [employees, setEmployees] = useState([]);
 
     const { age } = useParams();
-    let offset=0, pageSize=10;
-    const {currentPage, setCurrentPage} = useState(1);
+    const [pageNr,setPageNr] = useState(0);
+    const [maxPage,setMaxPage] = useState(0);
+    let perPage = 10;
 
     useEffect(() => {
+        loadMaxPage();
         loadEmployees();
         //eslint-disable-next-line
     }, []);
 
+    const loadMaxPage = async () =>{
+        const result = await axios.get(`https://grifon.crabdance.com/employees/maxPage/age/${age}`);
+        //const result = await axios.get(`http://localhost:8080/employees/maxPage/age/${age}`);
+        console.log(result.data);
+        setMaxPage(Math.ceil((result.data / 10)) - 1);
+    }
+
     const loadEmployees = async () => {
-        if (age != 0) {
-            const result = await axios.get(`https://grifon.crabdance.com/employees/filter/age/${age}/${offset}/${pageSize}`)
-            //const result = await axios.get(`http://localhost:8080/employees/filter/age/${age}/${offset}/${pageSize}`)
+        if (age !== 0) {
+            const result = await axios.get(`https://grifon.crabdance.com/employees/filter/age/${age}/${pageNr}/${perPage}`)
+            //const result = await axios.get(`http://localhost:8080/employees/filter/age/${age}/${pageNr}/${perPage}`)
             setEmployees(result.data);
         }
         else {
-            const result = await axios.get(`https://grifon.crabdance.com/employees/page/${offset}/${pageSize}`)
-            //const result = await axios.get(`http://localhost:8080/employees/page/${offset}/${pageSize}`)
-            /*
-            let newArr = []
-            result.forEach((e,i) => {
-            let index = newArr.findIndex(el => el.name === e.name);
-            if(index !== -1 ) newArr[index].value += parseFloat(e.value); //add to the value if an element is not unique
-            if(index === -1 ) newArr.push({...e, value: parseFloat(e.value)}); //push to the array if the element is unique and convert value to float
-            });*/
+            const result = await axios.get(`https://grifon.crabdance.com/employees/page/${pageNr}/${perPage}`)
+            //const result = await axios.get(`http://localhost:8080/employees/page/${pageNr}/${perPage}`)
             let arr = result.data;
             arr.sort((e1,e2) => (e1.age < e2.age) ? 1 : (e1.age > e2.age) ? -1 : 0);
             setEmployees(arr.data);
@@ -42,27 +44,49 @@ export default function Filtered() {
         loadEmployees();
     };
 
-    const incPage = (e) => {
-        offset = offset + 1;
+    const nextPage = () =>{
+        console.log("page was", pageNr);
+        if(pageNr!==maxPage) {
+            setPageNr(pageNr + 1);
+        }
+        console.log("page set", pageNr);
         loadEmployees();
     }
 
-    const decPage = (e) => {
-        if (offset >= 1)
-            offset = offset - 1;
+    const prevPage = () =>{
+        if(pageNr!==1) {
+            setPageNr(pageNr - 1);
+        }
         loadEmployees();
     }
 
-    function changePage(newpage) {
-        setCurrentPage(newpage);
+    const changePage = (nr) =>{
+        document.getElementById("bt1").hidden=false;
+        document.getElementById("bt2").hidden=false;
+        document.getElementById("bt3").hidden=false;
+        document.getElementById("bt4").hidden=false;
+        if(nr<3){
+            document.getElementById("bt1").hidden=true;
+            document.getElementById("bt2").hidden=true;
+        }
+        if(nr>maxPage-3){
+            document.getElementById("bt3").hidden=true;
+            document.getElementById("bt4").hidden=true;
+        }
+        console.log(nr);
+        setPageNr(nr);
+        loadEmployees();
     }
 
-    const recordsPerPage = 10;
-    const lastIndex = currentPage + recordsPerPage;
-    const firstIndex = lastIndex - recordsPerPage;
-    const records = employees.slice(firstIndex, lastIndex)
-    const npage = Math.ceil(employees.length / recordsPerPage)
-    const pageNumbers = [...Array(npage + 1).keys()].slice(1);
+    const firstPage = () =>{
+        changePage(0);
+        loadEmployees();
+    }
+
+    const lastPage = () =>{
+        changePage(maxPage);
+        loadEmployees();
+    }
 
     return (
         <div className='container'>
@@ -101,29 +125,21 @@ export default function Filtered() {
                         }
                     </tbody>
                 </table>
-                <nav>
-                    <ul className='pagination'>
-                        <li className='page-item'>
-                            <a href='#' className='page-link' onClick={decPage}>Prev</a>
-                        </li>
-                    {/* <button className='btn btn-primary mx-2' onClick={decPage}>
-                    Prev Page
-                    </button> */}
-                    {   
-                        pageNumbers.map((n, i) => (
-                            <li className={`page-item $(currentPage === n ? 'active' : '')`} key={i}>
-                                <a href='#' className='page-link' onClick={() => changePage(n)} > {n}</a>
-                            </li>
-                        ))
-                    }
-                        <li className='page-item'>
-                            <a href='#' className='page-link' onClick={incPage}>Next</a>
-                        </li>
-                    {/* <button className='btn btn-primary mx-2' onClick={incPage}>
-                    Next Page
-                    </button> */}
-                    </ul>
-                </nav>
+                <div>
+                    {/* <button className="btn btn-outline-primary mx-2" onClick={()=>firstPage()}>First Page</button> */}
+                    <button className="btn btn-outline-primary mx-2" onClick={()=>prevPage()}>Prev Page</button>
+                    <button className="btn btn-outline-primary mx-2" onClick={()=>firstPage()}>0</button>
+                    ...
+                    <button id={"bt1"} className="btn btn-outline-primary mx-2" onClick={()=>changePage(pageNr-2)}>{pageNr-2}</button>
+                    <button id={"bt2"} className="btn btn-outline-primary mx-2" onClick={()=>changePage(pageNr-1)}>{pageNr-1}</button>
+                    <button className="btn btn-outline-primary mx-2" onClick={()=>changePage(pageNr)}>{pageNr}</button>
+                    <button id={"bt3"} className="btn btn-outline-primary mx-2" onClick={()=>changePage(pageNr+1)}>{pageNr+1}</button>
+                    <button id={"bt4"} className="btn btn-outline-primary mx-2" onClick={()=>changePage(pageNr+2)}>{pageNr+2}</button>
+                    ...
+                    <button className="btn btn-outline-primary mx-2" onClick={()=>lastPage()}>{maxPage}</button>
+                    <button className="btn btn-outline-primary mx-2" onClick={()=>nextPage()}>Next Page</button>
+                    {/* <button className="btn btn-outline-primary mx-2" onClick={()=>lastPage()}>Last Page</button> */}
+                </div>
             </div>
         </div>
     )

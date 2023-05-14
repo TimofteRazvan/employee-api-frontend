@@ -19,8 +19,8 @@ export default function ViewSpouse() {
 
     const loadSpouse = async () => {
         const result = await axios.get(`https://grifon.crabdance.com/spouses/${id}`)
-        console.log(result);
         //const result = await axios.get(`http://localhost:8080/spouses/${id}`)
+        console.log(result);
         setSpouse(result.data)
     }
 

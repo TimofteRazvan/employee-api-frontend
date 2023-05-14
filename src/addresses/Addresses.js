@@ -4,17 +4,26 @@ import { Link, useParams } from 'react-router-dom';
 
 export default function Addresses() {
     const [addresses, setAddresses] = useState([]);
-    const {currentPage, setCurrentPage} = useState(1);
-    let i = 0, nr = 10;
+    const [pageNr,setPageNr] = useState(0);
+    const [maxPage,setMaxPage] = useState(0);
+    let perPage = 10;
 
     useEffect(() => {
+        loadMaxPage();
         loadAddresses();
     }, []);
 
-    const loadAddresses = async () => {
-        const result = await axios.get(`https://grifon.crabdance.com/addresses/page/${i}/${nr}`)
-        //const result = await axios.get(`http://localhost:8080/addresses/page/${i}/${nr}`)
+    const loadMaxPage = async () =>{
+        const result = await axios.get("https://grifon.crabdance.com/addresses/maxPage");
+        //const result = await axios.get("http://localhost:8080/addresses/maxPage");
         console.log(result.data);
+        setMaxPage(Math.ceil((result.data / 10)) - 1);
+    }
+
+    const loadAddresses = async () => {
+        const result = await axios.get(`https://grifon.crabdance.com/addresses/page/${pageNr}/${perPage}`)
+        //const result = await axios.get(`http://localhost:8080/addresses/page/${pageNr}/${perPage}`)
+        //console.log(result.data);
         setAddresses(result.data);
     };
 
@@ -24,27 +33,49 @@ export default function Addresses() {
         loadAddresses();
     };
 
-    const incPage = (e) => {
-        i = i + 1;
+    const nextPage = () =>{
+        console.log("page was", pageNr);
+        if(pageNr!==maxPage) {
+            setPageNr(pageNr + 1);
+        }
+        console.log("page set", pageNr);
         loadAddresses();
     }
 
-    const decPage = (e) => {
-        if (i >= 1)
-            i = i - 1;
+    const prevPage = () =>{
+        if(pageNr!==1) {
+            setPageNr(pageNr - 1);
+        }
         loadAddresses();
     }
 
-    function changePage(newpage) {
-        setCurrentPage(newpage);
+    const changePage = (nr) =>{
+        document.getElementById("bt1").hidden=false;
+        document.getElementById("bt2").hidden=false;
+        document.getElementById("bt3").hidden=false;
+        document.getElementById("bt4").hidden=false;
+        if(nr<3){
+            document.getElementById("bt1").hidden=true;
+            document.getElementById("bt2").hidden=true;
+        }
+        if(nr>maxPage-3){
+            document.getElementById("bt3").hidden=true;
+            document.getElementById("bt4").hidden=true;
+        }
+        console.log(nr);
+        setPageNr(nr);
+        loadAddresses();
     }
 
-    const recordsPerPage = 10;
-    const lastIndex = currentPage + recordsPerPage;
-    const firstIndex = lastIndex - recordsPerPage;
-    const records = addresses.slice(firstIndex, lastIndex)
-    const npage = Math.ceil(addresses.length / recordsPerPage)
-    const pageNumbers = [...Array(npage + 1).keys()].slice(1);
+    const firstPage = () =>{
+        changePage(0);
+        loadAddresses();
+    }
+
+    const lastPage = () =>{
+        changePage(maxPage);
+        loadAddresses();
+    }
 
     return (
         <div className='container'>
@@ -93,29 +124,21 @@ export default function Addresses() {
                         }
                     </tbody>
                 </table>
-                <nav>
-                    <ul className='pagination'>
-                        <li className='page-item'>
-                            <a href='#' className='page-link' onClick={decPage}>Prev</a>
-                        </li>
-                    {/* <button className='btn btn-primary mx-2' onClick={decPage}>
-                    Prev Page
-                    </button> */}
-                    {   
-                        pageNumbers.map((n, i) => (
-                            <li className={`page-item $(currentPage === n ? 'active' : '')`} key={i}>
-                                <a href='#' className='page-link' onClick={() => changePage(n)} > {n}</a>
-                            </li>
-                        ))
-                    }
-                        <li className='page-item'>
-                            <a href='#' className='page-link' onClick={incPage}>Next</a>
-                        </li>
-                    {/* <button className='btn btn-primary mx-2' onClick={incPage}>
-                    Next Page
-                    </button> */}
-                    </ul>
-                </nav>
+                <div>
+                    {/* <button className="btn btn-outline-primary mx-2" onClick={()=>firstPage()}>First Page</button> */}
+                    <button className="btn btn-outline-primary mx-2" onClick={()=>prevPage()}>Prev Page</button>
+                    <button className="btn btn-outline-primary mx-2" onClick={()=>firstPage()}>0</button>
+                    ...
+                    <button id={"bt1"} className="btn btn-outline-primary mx-2" onClick={()=>changePage(pageNr-2)}>{pageNr-2}</button>
+                    <button id={"bt2"} className="btn btn-outline-primary mx-2" onClick={()=>changePage(pageNr-1)}>{pageNr-1}</button>
+                    <button className="btn btn-outline-primary mx-2" onClick={()=>changePage(pageNr)}>{pageNr}</button>
+                    <button id={"bt3"} className="btn btn-outline-primary mx-2" onClick={()=>changePage(pageNr+1)}>{pageNr+1}</button>
+                    <button id={"bt4"} className="btn btn-outline-primary mx-2" onClick={()=>changePage(pageNr+2)}>{pageNr+2}</button>
+                    ...
+                    <button className="btn btn-outline-primary mx-2" onClick={()=>lastPage()}>{maxPage}</button>
+                    <button className="btn btn-outline-primary mx-2" onClick={()=>nextPage()}>Next Page</button>
+                    {/* <button className="btn btn-outline-primary mx-2" onClick={()=>lastPage()}>Last Page</button> */}
+                </div>
             </div>
         </div>
     )
